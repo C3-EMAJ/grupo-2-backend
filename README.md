@@ -28,6 +28,8 @@ then run the image that was builded
 docker-compose up
 ```
 go to http://localhost:8000/
+
+Mongodb will be running on mongodb://root:root@localhost:27017/
 ### running Django
 ```
 python manage.py migrate

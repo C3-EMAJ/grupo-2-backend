@@ -2,4 +2,3 @@
 .git
 .gitignore
 .env.example
-_data
