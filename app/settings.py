@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'djongo',
+    'backendEMAJ.apps.BackendemajConfig'
 ]
 
 MIDDLEWARE = [
@@ -75,8 +77,11 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'djongo',
+        "CLIENT": {
+           "name": 'emajDB',
+           "host": 'mongodb://127.0.0.1:27017/emajDB?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.0.1'
+        }, 
     }
 }
 
