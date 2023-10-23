@@ -24,4 +24,4 @@ def createAssistido(request):
     newAssistido.save()
     # const data = {name, cpf, rg, date, isChecked,
     #  email, telefone1, telefone2, profissao, renda, dependentes}
-    return JsonResponse({"success":True, "user": newAssistido})
+    return JsonResponse({"success":True})
