@@ -21,7 +21,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('user/', views.user),
+    path('user/', csrf_exempt(views.user)),
     #path('user/', csrf_exempt(views.createUser)),
     path('assistido/', csrf_exempt(views.createAssistido))
 ]
