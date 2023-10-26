@@ -37,7 +37,7 @@ class Documento(models.Model):
 
     
 class Pecas(models.Model):
-    nome = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
     observacao = models.TextField()
     url = models.URLField()
     
@@ -68,7 +68,7 @@ class Assistido(models.Model):
     
 
 class Usuario(models.Model):
-    nome = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
     email = models.EmailField()
     usuario = models.CharField(max_length=100)
     senha = models.CharField(max_length=100)

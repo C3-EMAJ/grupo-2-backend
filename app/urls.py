@@ -23,5 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', csrf_exempt(views.user)),
     #path('user/', csrf_exempt(views.createUser)),
-    path('assistido/', csrf_exempt(views.createAssistido))
+    path('assistido/', csrf_exempt(views.createAssistido)),
+    path('deleteAssistido/', csrf_exempt(views.deleteAssistido))
 ]
