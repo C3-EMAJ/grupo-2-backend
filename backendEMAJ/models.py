@@ -44,8 +44,8 @@ class Pecas(models.Model):
 
 class Assistido(models.Model):
     name = models.CharField(max_length=100)
-    cpf = models.CharField(max_length=11)
-    rg = models.IntegerField(20)
+    cpf = models.CharField(max_length=11, unique=True)
+    rg = models.IntegerField(20, unique=True)
     dataNasc = models.DateField(max_length=8)
     email = models.EmailField()
     telefone1 = models.IntegerField(max_length= 15)
@@ -69,7 +69,7 @@ class Assistido(models.Model):
 
 class Usuario(models.Model):
     name = models.CharField(max_length=100)
-    email = models.EmailField()
+    email = models.EmailField(unique=True)
     usuario = models.CharField(max_length=100)
     senha = models.CharField(max_length=100)
     role = models.CharField(max_length=100)

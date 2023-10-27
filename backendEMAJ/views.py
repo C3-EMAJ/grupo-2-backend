@@ -14,6 +14,7 @@ from backendEMAJ.models import Usuario
 def user(request):
     requisicao = json.loads(request.body)
     newUser = Usuario(**requisicao)
+
     newUser.save()
     return HttpResponse("Sucesso.")
 
@@ -57,28 +58,23 @@ def deleteAssistido(request):
     else:
         return JsonResponse({"success": False, "message": "Parâmetro 'id' ausente na requisição"})
 
-#@require_POST
-#def editAssistido(request):
-#    requisicao = json.loads(request.body)
-#    id = requisicao.get('id', None)
-#   novo_name = requisicao.get('novo_name', None)
-#
-#    if id is not None and novo_name is not None:
-#        try:
-#            assistido = Assistido.objects.get(id=id)
-#
- #           # Atualize os campos do Assistido com os novos valores do JSON da requisição
-  #          for key, value in requisicao.items():
-   #             if key != 'id' and key != 'novo_name':
-    #                setattr(assistido, key, value)
-#
- #           # Atualize o nome (caso tenha sido alterado)
-  #          if current_name != new_name:
-   #             assistido.name = new_name
-#
- #           assistido.save()  # Salve as alterações no banco de dados
-  #          return JsonResponse({"success": True, "message": "Assistido editado com sucesso"})
-   #     except Assistido.DoesNotExist:
-    #        return JsonResponse({"success": False, "message": "Assistido não encontrado"})
-    #else:
-      #  return JsonResponse({"success": False, "message": "Parâmetros ausentes na requisição"})
+@require_POST
+def editAssistido(request):
+    requisicao = json.loads(request.body)
+    id = requisicao.get('id', None)
+
+    if id is not None:
+        try:
+            assistido = Assistido.objects.get(id=id)
+
+            # Atualize os campos do Assistido com os novos valores do JSON da requisição
+            for key, value in requisicao.items():
+                if key != 'id':
+                    setattr(assistido, key, value)
+
+            assistido.save()  # Salve as alterações no banco de dados
+            return JsonResponse({"success": True, "message": "Assistido editado com sucesso"})
+        except Assistido.DoesNotExist:
+            return JsonResponse({"success": False, "message": "Assistido não encontrado"})
+    else:
+        return JsonResponse({"success": False, "message": "Parâmetros ausentes na requisição"})
