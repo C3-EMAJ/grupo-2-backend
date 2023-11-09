@@ -21,10 +21,10 @@ from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('user/', csrf_exempt(views.user)),
-    #path('user/', csrf_exempt(views.createUser)),
+    path('user/', csrf_exempt(views.createUser)),
     path('assistido/', csrf_exempt(views.createAssistido)),
     path('deleteAssistido/', csrf_exempt(views.deleteAssistido)),
     path('deleteUser/', csrf_exempt(views.deleteUser)),
-    path('editAssistido/', csrf_exempt(views.editAssistido))
+    path('editAssistido/', csrf_exempt(views.editAssistido)),
+    path('editUser/', csrf_exempt(views.editUser))
 ]
