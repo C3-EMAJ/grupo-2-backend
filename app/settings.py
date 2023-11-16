@@ -46,6 +46,7 @@ CORS_ALLOW_METHODS = ['GET', 'POST', 'OPTIONS']
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # Adicione o endereço do seu aplicativo React
+    "https://emaj-2-backend.onrender.com"
 ]
 
 
