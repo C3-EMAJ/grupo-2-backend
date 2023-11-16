@@ -42,6 +42,7 @@ class Pecas(models.Model):
     url = models.URLField()
     
 class Representado(models.Model):
+    id_uuid = models.CharField(max_length=100, unique=True, null=True)
     name = models.CharField(max_length=100, null=False)
     cpf = models.CharField(max_length=11, unique=True, null=False)
     rg = models.IntegerField(20, unique=True, null=False)
@@ -49,6 +50,7 @@ class Representado(models.Model):
     estadoCivil = models.CharField(max_length=100)
 
 class Assistido(models.Model):
+    id_uuid = models.CharField(max_length=100, unique=True, null=True)
     name = models.CharField(max_length=100, null=False)
     cpf = models.CharField(max_length=11, unique=True, null=False)
     rg = models.IntegerField(20, unique=True, null=False)
@@ -75,6 +77,7 @@ class Assistido(models.Model):
     
 
 class Usuario(models.Model):
+    id_uuid = models.CharField(max_length=100, unique=True, null=True)
     name = models.CharField(max_length=100, null=False)
     email = models.EmailField(unique=True, null=False)
     usuario = models.CharField(max_length=100, null=False)

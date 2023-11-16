@@ -22,57 +22,56 @@ def createUser(request):
     try:
         validation = ModelUsuario(**requisicao)
     except ValidationError as e:
-        return JsonResponse({
-            "error":e.errors(),
+        return JsonResponse(data={
+            "error":str(e.errors()),
             "statuscode": 400
-        })
+        }, status=400)
     
-    #newUUID = uuid.uuid4           Futuramente implementar caso nao seja possivel usar o _id.
-    #print(newUUID)
-    
-    newUsuario = Usuario(**requisicao)
-    
-    #setattr(newUsuario, "UUID", newUUID)       Teria que criar na model, e depois dele
+    ##### Criando o UUID #####
 
+    newUUID = uuid.uuid4()
+    newUsuario = Usuario(**requisicao)
+    setattr(newUsuario, "id_uuid", newUUID)
     newUsuario.save()
+
     return JsonResponse({"success":True})
 
 @require_POST
 def deleteUser(request):
     requisicao = json.loads(request.body)
-    email = requisicao.get('email', None)
+    id_uuid = requisicao.get('id_uuid', None)
 
-    if email is not None: #                 Utilizando o email, pois é único, e também por que nao consegui utilizar o _id
+    if id_uuid is not None:
         try:
-            user = Usuario.objects.get(email = email)
+            user = Usuario.objects.get(id_uuid = id_uuid)
             user.delete()
-            return JsonResponse({"success": True, "message": "Usuario deletado com sucesso"})
+            return JsonResponse(data={"success": True, "message": "Usuario deletado com sucesso"}, status=200)
         except Usuario.DoesNotExist:
-            return JsonResponse({"success": False, "message": "Usuario não encontrado"})
+            return JsonResponse(data={"success": False, "message": "Usuario não encontrado."}, status=404)
     else:
-        return JsonResponse({"success": False, "message": "Parâmetro 'id' ausente na requisição"})
+        return JsonResponse(data={"success": False, "message": "Parâmetro 'id_uuid' ausente na requisição."}, status=404)
     
 
 @require_POST
 def editUser(request):
     requisicao = json.loads(request.body)
-    email = requisicao.get('email', None)
-    print(email)
-    if email is not None:
+    id_uuid = requisicao.get('id_uuid', None)
+    print(id_uuid)
+    if id_uuid is not None:
         try:
-            user = Usuario.objects.get(email=email)
+            user = Usuario.objects.get(id_uuid=id_uuid)
 
             # Atualize os campos do Assistido com os novos valores do JSON da requisição
             for key, value in requisicao.items():
-                if key != 'email': #                Ainda não é possivel alterar o email.
+                if key != 'id_uuid': 
                     setattr(user, key, value)
 
             user.save()  # Salve as alterações no banco de dados
-            return JsonResponse({"success": True, "message": "Usuario editado com sucesso"})
+            return JsonResponse(data={"success": True, "message": "Usuario editado com sucesso"}, status=200)
         except Usuario.DoesNotExist:
-            return JsonResponse({"success": False, "message": "Usuario não encontrado"})
+            return JsonResponse(data={"success": False, "message": "Usuario não encontrado."}, status=404)
     else:
-        return JsonResponse({"success": False, "message": "Parâmetros ausentes na requisição"})
+        return JsonResponse(data={"success": False, "message": "Parâmetro 'id_uuid' não encontrado."}, status=404)
 
 
 
@@ -88,47 +87,65 @@ def createAssistido(request):
             "error":e.errors(),
             "statuscode": 400
         })
+    
+    # representado = requisicao.get('representado', None)
+    # newUUID2 = uuid.uuid4()
+    # del requisicao['representado']
+    # newAssistido2= Assistido.objects.get(id_uuid=newUUID2)
 
+    # if representado != None:
+    #     print(representado)
+    #     newRepresentado = Representado(**representado)
+    #     setattr(newRepresentado, "id_uuid", newUUID)
+    #     newRepresentado.save()
+    #     newAssistido2.representado.add(newRepresentado)
+    
+    ##### Criando o UUID #####
+    
     newAssistido = Assistido(**requisicao)
+    newUUID = uuid.uuid4()
+    setattr(newAssistido, "id_uuid", newUUID)
     newAssistido.save()
-    return JsonResponse({"success":True})
+
+    return JsonResponse(data={"success": True, "message": "Assistido criado com sucesso"}, status=201)
 
 @require_POST
 def deleteAssistido(request):
     requisicao = json.loads(request.body)
-    cpf = requisicao.get('cpf', None)
+    id_uuid = requisicao.get('id_uuid', None)
 
-    if cpf is not None:
+
+    if id_uuid is not None:
         try:
-            Assistido.objects.filter(cpf=cpf).delete()
-            return JsonResponse({"success": True, "message": "Assistido deletado com sucesso"})
+            Assistido.objects.get(id_uuid=id_uuid).delete()
+            return JsonResponse(data={"success": True, "message": "Assistido deletado com sucesso"}, status=200)
         except Assistido.DoesNotExist:
-            return JsonResponse({"success": False, "message": "Assistido não encontrado"})
+            return JsonResponse(data={"success": False, "message": "Assistido não encontrado"}, status=404)
     else:
-        return JsonResponse({"success": False, "message": "Parâmetro 'id' ausente na requisição"})
+        return JsonResponse(data={"success": False, "message": "Parâmetro 'id_uuid' ausente na requisição"}, status=404)
 
 
 @require_POST
 def editAssistido(request):
     requisicao = json.loads(request.body)
-    cpf = requisicao.get('cpf', None)
+    id_uuid = requisicao.get('id_uuid', None)
 
-    if cpf is not None:
+    if id_uuid is not None:
         try:
-            assistido = Assistido.objects.get(cpf=cpf)
+            assistido = Assistido.objects.get(id_uuid=id_uuid)
 
             # Atualize os campos do Assistido com os novos valores do JSON da requisição
             for key, value in requisicao.items():
                 print(key, value)
-                if key != 'cpf':
-                    setattr(assistido, key, value) # Database error
-
-            assistido._do_update(forced_update=True)  # Salve as alterações no banco de dados
-            return JsonResponse({"success": True, "message": "Assistido editado com sucesso"})
+                if key != 'id_uuid':
+                    setattr(assistido, key, value)
+                    
+            assistido.save()  # Salve as alterações no banco de dados
+            return JsonResponse(data={"success": True, "message": "Assistido editado com sucesso."}, status=200)
         except Assistido.DoesNotExist:
-            return JsonResponse({"success": False, "message": "Assistido não encontrado"})
+            return JsonResponse(data={"success": False, "message": "Assistido não encontrado."}, status=404)
     else:
-        return JsonResponse({"success": False, "message": "Parâmetros ausentes na requisição"})
+        return JsonResponse(data={"success": False, "message": "Parâmetro 'id_uuid' não encontrado na requisição."}, status=404)
     
 
 ################# TESTES #################
