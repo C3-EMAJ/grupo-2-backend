@@ -12,8 +12,8 @@ class ModelUsuario(BaseModel):
     
 ################# Validações #################
 
-#    @field_validator('email')
-#    @classmethod
-#    def email_must_be_email(cls, email):
-#        assert "@furg.br" not in email
-#        return email
+    @field_validator('email')
+    @classmethod
+    def email_must_be_email(cls, email):
+        assert "@furg.br" in email
+        return email
