@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -96,7 +97,8 @@ DATABASES = {
         'ENGINE': 'djongo',
         "CLIENT": {
            "name": 'emajDB',
-           "host": 'mongodb://127.0.0.1:27017/emajDB?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.0.1'
+           "host": os.getenv("MONGO_DB_URI", " mongodb://127.0.0.1:27017/emajDB?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.0.1")
+
         }, 
     }
 }
