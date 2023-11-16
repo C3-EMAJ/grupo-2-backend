@@ -28,7 +28,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     "https://emaj-2-backend.onrender.com",
-    "https://emaj-2.onrender.com"
+    "https://emaj-2.onrender.com",
+    "emaj-2-backend.onrender.com",
+    "emaj-2.onrender.com"
 ]
 
 
