@@ -26,7 +26,10 @@ SECRET_KEY = 'django-insecure-rc#*v8-qr23=&ywky3vsc9ib*%bo&6*_6*0u5i@e_l9+za0uc%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "https://emaj-2-backend.onrender.com",
+    "https://emaj-2.onrender.com"
+]
 
 
 # Application definition
@@ -46,7 +49,8 @@ CORS_ALLOW_METHODS = ['GET', 'POST', 'OPTIONS']
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # Adicione o endereço do seu aplicativo React
-    "https://emaj-2-backend.onrender.com"
+    "https://emaj-2-backend.onrender.com",
+    "https://emaj-2.onrender.com"
 ]
 
 
