@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -37,7 +38,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'djongo',
+    'corsheaders',
+    'backendEMAJ.apps.BackendemajConfig'
 ]
+CORS_ALLOW_METHODS = ['GET', 'POST', 'OPTIONS']
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # Adicione o endereço do seu aplicativo React
+]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -47,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'app.urls'
@@ -75,8 +86,11 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'djongo',
+        "CLIENT": {
+           "name": 'emajDB',
+           "host": 'mongodb://127.0.0.1:27017/emajDB?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.0.1'
+        }, 
     }
 }
 
