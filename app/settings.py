@@ -28,6 +28,7 @@ SECRET_KEY = 'django-insecure-rc#*v8-qr23=&ywky3vsc9ib*%bo&6*_6*0u5i@e_l9+za0uc%
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    "127.0.0.1",
     "https://emaj-2-backend.onrender.com",
     "https://emaj-2.onrender.com",
     "emaj-2-backend.onrender.com",
