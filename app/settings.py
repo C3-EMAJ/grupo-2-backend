@@ -95,10 +95,13 @@ WSGI_APPLICATION = 'app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
+        'NAME': 'emajDB',
         "CLIENT": {
-           "name": 'emajDB',
-           "host": os.getenv("MONGO_DB_URI", " mongodb://127.0.0.1:27017/emajDB?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.0.1")
-
+            'host': 'mongodb+srv://emajgrupo2:Fxgz3sASUSTLEuHs@emaj-2.pcyda8q.mongodb.net/',
+            'username': 'emajgrupo2',
+            'password': 'Fxgz3sASUSTLEuHs',
+            'authSource': 'admin',
+            'authMechanism': 'SCRAM-SHA-1',
         }, 
     }
 }
