@@ -13,7 +13,7 @@ idna
 packaging
 pydantic
 pydantic_core
-pymongo
+pymongo==3.12.3
 pytz
 sqlparse
 typing_extensions
