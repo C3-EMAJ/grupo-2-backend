@@ -8,6 +8,7 @@ from django.http import JsonResponse
 from backendEMAJ import models
 from backendEMAJ.models import Assistido
 from backendEMAJ.models import Usuario
+from backendEMAJ.models import Representado
 from backendEMAJ.services.validAssistido import ModelAssistido
 from backendEMAJ.services.validUsuario import ModelUsuario
 from pydantic import ValidationError
@@ -117,7 +118,12 @@ def deleteAssistido(request):
 
     if id_uuid is not None:
         try:
-            Assistido.objects.get(id_uuid=id_uuid).delete()
+            varAssistido = Assistido.objects.get(id_uuid=id_uuid)
+            Representado.objects.filter(id__in=[r.id for r in varAssistido.representado.all()]).delete()
+            varAssistido.delete()
+
+            # .delete()
+            
             return JsonResponse(data={"success": True, "message": "Assistido deletado com sucesso"}, status=200)
         except Assistido.DoesNotExist:
             return JsonResponse(data={"success": False, "message": "Assistido não encontrado"}, status=404)

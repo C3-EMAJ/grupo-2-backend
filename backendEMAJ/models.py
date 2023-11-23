@@ -1,4 +1,5 @@
 from djongo import models
+from django import forms
 
 
 class Processo(models.Model):
@@ -42,12 +43,21 @@ class Pecas(models.Model):
     url = models.URLField()
     
 class Representado(models.Model):
-    id_uuid = models.CharField(max_length=100, unique=True, null=True)
-    name = models.CharField(max_length=100, null=False)
-    cpf = models.CharField(max_length=11, unique=True, null=False)
-    rg = models.IntegerField(20, unique=True, null=False)
-    dataNasc = models.DateField(max_length=8, null=False)
-    estadoCivil = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, null=True)
+    cpf = models.CharField(max_length=11, null=True)
+    rg = models.IntegerField(20, null=True)
+    dataNasc = models.DateField(max_length=8, null=True)
+    estadoCivil = models.CharField(max_length=100, null=True)
+    
+    class Meta:
+        abstract = True
+
+class RepresentadoForm(forms.ModelForm):
+    class Meta:
+        model = Representado
+        fields = (
+            'name', 'cpf', 'rg', 'dataNasc', 'estadoCivil'
+        )
 
 class Assistido(models.Model):
     id_uuid = models.CharField(max_length=100, unique=True, null=True)
@@ -63,7 +73,7 @@ class Assistido(models.Model):
     idade = models.IntegerField()
     renda = models.FloatField(null=False)
     dependentes = models.CharField(max_length=100)
-    representado = models.ArrayReferenceField(to=Representado, null=True)
+    representado = models.ArrayField(model_container=Representado, model_form_class=RepresentadoForm, null=True)
     endereco = models.TextField(max_length= 50, null=False)
     #processos = models.ArrayReferenceField(to=Processo)
     conhecido = models.CharField(max_length=100)
