@@ -19,3 +19,4 @@ sqlparse
 typing_extensions
 tzdata
 uvicorn
+python-decouple

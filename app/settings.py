@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+from decouple import config
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -98,7 +99,7 @@ DATABASES = {
         'ENGINE': 'djongo',
         'NAME': 'emajDB',
         "CLIENT": {
-            'host': 'mongodb+srv://emajgrupo2:Fxgz3sASUSTLEuHs@emaj-2.pcyda8q.mongodb.net/',
+            'host': config('MONGO_DB_URI'),
             'username': 'emajgrupo2',
             'password': 'Fxgz3sASUSTLEuHs',
             'authSource': 'admin',
