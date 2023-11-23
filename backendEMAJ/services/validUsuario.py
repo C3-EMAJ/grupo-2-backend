@@ -16,4 +16,4 @@ class ModelUsuario(BaseModel):
     @classmethod
     def email_must_be_email(cls, email):
         assert "@furg.br" in email
-        return email
+        return (f"Email {email} não é do dominio furg. '@furg.br'.")

@@ -23,8 +23,10 @@ def createUser(request):
     try:
         validation = ModelUsuario(**requisicao)
     except ValidationError as e:
+        #if e.errors().
         return JsonResponse(data={
             "error":str(e.errors()),
+            "message": str('oi'),
             "statuscode": 400
         }, status=400)
     
@@ -35,7 +37,7 @@ def createUser(request):
     setattr(newUsuario, "id_uuid", newUUID)
     newUsuario.save()
 
-    return JsonResponse({"success":True})
+    return JsonResponse(data={"success": True, "message": "Usuário criado com sucesso."}, status=201)
 
 @require_POST
 def deleteUser(request):
@@ -89,23 +91,22 @@ def createAssistido(request):
             "statuscode": 400
         })
     
-    # representado = requisicao.get('representado', None)
-    # newUUID2 = uuid.uuid4()
-    # del requisicao['representado']
-    # newAssistido2= Assistido.objects.get(id_uuid=newUUID2)
+    representado = requisicao.get('representado', None)
+    newUUIDrep = uuid.uuid4()
+    del requisicao['representado']
 
-    # if representado != None:
-    #     print(representado)
-    #     newRepresentado = Representado(**representado)
-    #     setattr(newRepresentado, "id_uuid", newUUID)
-    #     newRepresentado.save()
-    #     newAssistido2.representado.add(newRepresentado)
+    if representado != None:
+        print(representado)
+        newRepresentado = Representado(**representado)
+        setattr(newRepresentado, "id_uuid", newUUIDrep)
+        newRepresentado.save()
     
     ##### Criando o UUID #####
     
     newAssistido = Assistido(**requisicao)
-    newUUID = uuid.uuid4()
-    setattr(newAssistido, "id_uuid", newUUID)
+    newUUIDas = uuid.uuid4()
+    setattr(newAssistido, "id_uuid", newUUIDas)
+    setattr(newAssistido, "representado", newRepresentado)
     newAssistido.save()
 
     return JsonResponse(data={"success": True, "message": "Assistido criado com sucesso"}, status=201)
@@ -118,9 +119,12 @@ def deleteAssistido(request):
 
     if id_uuid is not None:
         try:
-            varAssistido = Assistido.objects.get(id_uuid=id_uuid)
-            Representado.objects.filter(id__in=[r.id for r in varAssistido.representado.all()]).delete()
-            varAssistido.delete()
+            assistidoDeletado=Assistido.objects.get(id_uuid=id_uuid)
+            print(assistidoDeletado, 'OIIIIII REPII')
+            representados_id = assistidoDeletado.representado_id
+            print(representados_id,'OIIIIIIIIIIII')
+            assistidoDeletado.delete()
+            Representado.objects.get(id_uuid=representados_id).delete()
 
             # .delete()
             

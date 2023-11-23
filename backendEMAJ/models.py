@@ -43,21 +43,16 @@ class Pecas(models.Model):
     url = models.URLField()
     
 class Representado(models.Model):
+    id_uuid = models.CharField(max_length=100, unique=True, primary_key=True)
     name = models.CharField(max_length=100, null=True)
     cpf = models.CharField(max_length=11, null=True)
     rg = models.IntegerField(20, null=True)
     dataNasc = models.DateField(max_length=8, null=True)
     estadoCivil = models.CharField(max_length=100, null=True)
-    
-    class Meta:
-        abstract = True
 
-class RepresentadoForm(forms.ModelForm):
-    class Meta:
-        model = Representado
-        fields = (
-            'name', 'cpf', 'rg', 'dataNasc', 'estadoCivil'
-        )
+    def returnAsDict(self):
+        return self.__dict__
+    
 
 class Assistido(models.Model):
     id_uuid = models.CharField(max_length=100, unique=True, null=True)
@@ -73,7 +68,7 @@ class Assistido(models.Model):
     idade = models.IntegerField()
     renda = models.FloatField(null=False)
     dependentes = models.CharField(max_length=100)
-    representado = models.ArrayField(model_container=Representado, model_form_class=RepresentadoForm, null=True)
+    representado = models.ForeignKey(Representado, null=True, on_delete=models.CASCADE)
     endereco = models.TextField(max_length= 50, null=False)
     #processos = models.ArrayReferenceField(to=Processo)
     conhecido = models.CharField(max_length=100)
