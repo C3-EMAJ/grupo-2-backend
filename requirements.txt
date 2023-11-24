@@ -20,5 +20,5 @@ typing_extensions
 tzdata
 uvicorn
 python-decouple
-os
+python-os
 python-dotenv
