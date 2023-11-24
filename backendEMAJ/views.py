@@ -158,6 +158,19 @@ def editAssistido(request):
         return JsonResponse(data={"success": False, "message": "Parâmetro 'id_uuid' não encontrado na requisição."}, status=404)
     
 
+@require_GET
+def getUsers(request):
+    try:
+        users = Usuario.objects.all()
+        if len(users) < 1:
+            return JsonResponse(data={"success": False, "message": "Nenhum usuario encontrado."}, status=404)    
+        # Converte a lista de usuários em um array de objetos JSON
+        users_json = [user.to_json() for user in users]
+
+        return JsonResponse(users_json, safe=False, status=200)
+    except Usuario.DoesNotExist:
+        return JsonResponse(data={"success": False, "message": "Nenhum usuario encontrado."}, status=404)
+
 ################# TESTES #################
 
 # def login(request):

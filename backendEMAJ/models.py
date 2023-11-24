@@ -91,6 +91,17 @@ class Usuario(models.Model):
     imagem = models.URLField()
     processos = models.ArrayReferenceField(to=Processo)
 
+    def to_json(self):
+        return {
+            "id_uuid": self.id_uuid,
+            "name": self.name,
+            "email": self.email,
+            "usuario": self.usuario,
+            "senha": self.senha,
+            "role": self.role,
+            "imagem": self.imagem
+        }
+
     
 
 

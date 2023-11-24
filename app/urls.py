@@ -26,5 +26,6 @@ urlpatterns = [
     path('deleteAssistido/', csrf_exempt(views.deleteAssistido)),
     path('deleteUser/', csrf_exempt(views.deleteUser)),
     path('editAssistido/', csrf_exempt(views.editAssistido)),
-    path('editUser/', csrf_exempt(views.editUser))
+    path('editUser/', csrf_exempt(views.editUser)),
+    path('getUser/', csrf_exempt(views.getUsers)),
 ]
