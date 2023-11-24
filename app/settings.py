@@ -13,6 +13,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os
 from decouple import config
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -99,7 +103,7 @@ DATABASES = {
         'ENGINE': 'djongo',
         'NAME': 'emajDB',
         "CLIENT": {
-            'host': config('MONGO_DB_URI'),
+            'host': os.getenv('MONGO_DB_URI'),
             'username': 'emajgrupo2',
             'password': 'Fxgz3sASUSTLEuHs',
             'authSource': 'admin',

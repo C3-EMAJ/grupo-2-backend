@@ -2,12 +2,17 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+from dotenv import load_dotenv
+import os
+
 
 
 def main():
     """Run administrative tasks."""
+    load_dotenv()
+
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'app.settings')
-    print(os.environ)
+    print(os.getenv('MONGO_DB_URI'))
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
