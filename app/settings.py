@@ -63,6 +63,12 @@ CORS_ALLOWED_ORIGINS = [
     "https://emaj-2.onrender.com"
 ]
 
+CORS_ALLOW_HEADERS = [
+    'X-Requested-With',
+    'Content-Type',
+    'Authorization'
+] 
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
