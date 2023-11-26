@@ -64,11 +64,11 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 CORS_ALLOW_HEADERS = [
-    'X-Requested-With',
-    'Content-Type',
-    'Authorization',
-    'Access-Control-Allow-Origin'
-] 
+    "Content-Type",
+    "X-Auth",
+    "Origin",
+    "Authorization",
+]
 
 
 MIDDLEWARE = [
