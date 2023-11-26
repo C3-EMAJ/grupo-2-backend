@@ -39,6 +39,7 @@ ALLOWED_HOSTS = [
     "emaj-2-backend.onrender.com",
     "emaj-2.onrender.com"
 ]
+CORS_ORIGIN_ALLOW_ALL = True
 
 
 # Application definition
