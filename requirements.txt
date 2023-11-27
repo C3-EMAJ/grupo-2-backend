@@ -15,7 +15,7 @@ pydantic
 pydantic_core
 pymongo==3.12.3
 pytz
-sqlparse
+sqlparse==0.2.4
 typing_extensions
 tzdata
 uvicorn
