@@ -77,6 +77,26 @@ class Assistido(models.Model):
     documentos = models.ArrayReferenceField(to=Documento)
     pecas = models.ArrayReferenceField(to=Pecas)
     
+    def to_json(self):
+        return {
+            "id_uuid": self.id_uuid,
+            "name": self.name,
+            "cpf": self.cpf,
+            "rg": self.rg,
+            "dataNasc": self.dataNasc,
+            "email": self.email,
+            "estadoCivil": self.estadoCivil,
+            "telefone1": self.telefone1,
+            "telefone2": self.telefone2,
+            "profissao": self.profissao,
+            "idade": self.idade,
+            "renda": self.renda,
+            "dependentes": self.dependentes,
+            "representado": self.representado_id,
+            "endereco": self.endereco,
+            "conhecido": self.conhecido,
+        }
+
     def returnAsDict(self):
         return self.__dict__
     
