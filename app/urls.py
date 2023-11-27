@@ -28,4 +28,5 @@ urlpatterns = [
     path('editAssistido/', csrf_exempt(views.editAssistido)),
     path('editUser/', csrf_exempt(views.editUser)),
     path('getUser/', csrf_exempt(views.getUsers)),
+    path('getAssistido/', csrf_exempt(views.getAssistidos)),
 ]
