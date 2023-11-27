@@ -93,9 +93,9 @@ def createAssistido(request):
     
     representado = requisicao.get('representado', None)
     newUUIDrep = uuid.uuid4()
-    del requisicao['representado']
 
     if representado != None:
+        del requisicao['representado']
         print(representado)
         newRepresentado = Representado(**representado)
         setattr(newRepresentado, "id_uuid", newUUIDrep)
