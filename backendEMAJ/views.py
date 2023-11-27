@@ -174,6 +174,21 @@ def getUsers(request):
         return JsonResponse(data={"success": False, "message": "Nenhum usuario encontrado."}, status=404)
     
 @require_GET
+def getUserByName(request):
+    nome=json.loads(request.body).get('name')
+    try:
+        
+        user = Usuario.objects.get(name=nome)
+        if user == None:
+            return JsonResponse(data={"success": False, "message": "Nenhum usuario encontrado."}, status=404)    
+        # Converte a lista de usuários em um array de objetos JSON
+        user_json = user.to_json()
+
+        return JsonResponse(user_json, safe=False, status=200)
+    except Usuario.DoesNotExist:
+        return JsonResponse(data={"success": False, "message": "Nenhum usuario encontrado."}, status=404)
+
+@require_GET
 def getAssistidos(request):
     try:
         assistidos = Assistido.objects.all()
