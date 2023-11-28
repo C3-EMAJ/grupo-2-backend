@@ -93,9 +93,9 @@ def createAssistido(request):
     
     representado = requisicao.get('representado', None)
     newUUIDrep = uuid.uuid4()
-
+    del requisicao['representado']
+    
     if representado != None:
-        del requisicao['representado']
         print(representado)
         newRepresentado = Representado(**representado)
         setattr(newRepresentado, "id_uuid", newUUIDrep)
@@ -120,9 +120,9 @@ def deleteAssistido(request):
     if id_uuid is not None:
         try:
             assistidoDeletado=Assistido.objects.get(id_uuid=id_uuid)
-            print(assistidoDeletado, 'OIIIIII REPII')
+            print(assistidoDeletado)
             representados_id = assistidoDeletado.representado_id
-            print(representados_id,'OIIIIIIIIIIII')
+            print(representados_id)
             assistidoDeletado.delete()
             Representado.objects.get(id_uuid=representados_id).delete()
 
@@ -202,6 +202,22 @@ def getAssistidos(request):
         return JsonResponse(data={"success": False, "message": "Nenhum assistido encontrado."}, status=404)
 
 ################# TESTES #################
+
+@require_GET
+def login(request):
+    requisicao = json.loads(request.body)
+    email = requisicao.get('email', None)
+    password = requisicao.get('senha', None)
+    try:
+        users = Usuario.objects.get(email=email)
+        if users.senha == password: #################### É AQUI NESSE JSON RESPONSE STATUS=200 que voces vão por o token.
+            ##### Assistam o video q mandei no discord no chat WORK
+            return JsonResponse(data={"success": True, "message": "Logado com sucesso."}, safe=False, status=200)
+        else:
+            return JsonResponse(data={"success": False, "message": "Senha errada."}, status=404)
+
+    except Usuario.DoesNotExist:
+        return JsonResponse(data={"success": False, "message": "Nenhum usuario encontrado com este email."}, status=404)
 
 # def login(request):
 #     requisicao = json.loads(request.body)

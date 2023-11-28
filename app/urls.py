@@ -30,4 +30,5 @@ urlpatterns = [
     path('getUser/', csrf_exempt(views.getUsers)),
     path('getUserByName/', csrf_exempt(views.getUserByName)),
     path('getAssistido/', csrf_exempt(views.getAssistidos)),
+    path('login/', csrf_exempt(views.login)),
 ]
