@@ -203,7 +203,7 @@ def getAssistidos(request):
 
 ################# TESTES #################
 
-@require_GET
+@require_POST
 def login(request):
     requisicao = json.loads(request.body)
     email = requisicao.get('email', None)
