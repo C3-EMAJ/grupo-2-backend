@@ -26,7 +26,7 @@ def createUser(request):
         #if e.errors().
         return JsonResponse(data={
             "error":str(e.errors()),
-            "message": str('oi'),
+            "message": str("Ocorreu um erro inesperado."),
             "statuscode": 400
         }, status=400)
     
@@ -175,7 +175,7 @@ def getUsers(request):
     
 @require_GET
 def getUserByName(request):
-    nome=json.loads(request.body).get('name')
+    nome=request.GET.get('name')
     try:
         
         user = Usuario.objects.get(name=nome)
@@ -203,16 +203,16 @@ def getAssistidos(request):
 
 ################# TESTES #################
 
-@require_GET
+@require_POST
 def login(request):
     requisicao = json.loads(request.body)
     email = requisicao.get('email', None)
-    password = requisicao.get('senha', None)
+    password = requisicao.get('password', None)
     try:
         users = Usuario.objects.get(email=email)
-        if users.senha == password: #################### É AQUI NESSE JSON RESPONSE STATUS=200 que voces vão por o token.
+        if users.password == password: #################### É AQUI NESSE JSON RESPONSE STATUS=200 que voces vão por o token.
             ##### Assistam o video q mandei no discord no chat WORK
-            return JsonResponse(data={"success": True, "message": "Logado com sucesso."}, safe=False, status=200)
+            return JsonResponse(data={"name": users.name, "username": users.username, "role": users.role, "image": users.image}, safe=False, status=200)
         else:
             return JsonResponse(data={"success": False, "message": "Senha errada."}, status=404)
 
