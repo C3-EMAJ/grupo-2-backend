@@ -5,10 +5,10 @@ import re
 class ModelUsuario(BaseModel):
     name : str
     email : str
-    usuario : str
-    senha : str
+    username : str
+    password : str
     role : str
-    imagem : str
+    image : str
     
 ################# Validações #################
 
