@@ -212,7 +212,7 @@ def login(request):
         users = Usuario.objects.get(email=email)
         if users.password == password: #################### É AQUI NESSE JSON RESPONSE STATUS=200 que voces vão por o token.
             ##### Assistam o video q mandei no discord no chat WORK
-            return JsonResponse(data={"success": True, "message": "Logado com sucesso.", "username":"{users.username}", "role":"{users.role}", "image":"{users.image}"}, safe=False, status=200)
+            return JsonResponse(data={"name": users.name, "username": users.username, "role": users.role, "image": users.image}, safe=False, status=200)
         else:
             return JsonResponse(data={"success": False, "message": "Senha errada."}, status=404)
 
