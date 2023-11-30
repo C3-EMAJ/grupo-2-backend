@@ -108,7 +108,7 @@ class Usuario(models.Model):
     username = models.CharField(max_length=100, null=False)
     password = models.CharField(max_length=100, null=False)
     role = models.CharField(max_length=100, null=False)
-    image = models.URLField(null=True)
+    image = models.CharField(null=True)
     processos = models.ArrayReferenceField(to=Processo)
 
     def to_json(self):
