@@ -105,10 +105,10 @@ class Usuario(models.Model):
     id_uuid = models.CharField(max_length=100, unique=True, null=True)
     name = models.CharField(max_length=100, null=False)
     email = models.EmailField(unique=True, null=False)
-    usuario = models.CharField(max_length=100, null=False)
-    senha = models.CharField(max_length=100, null=False)
-    role = models.CharField(max_length=100)
-    imagem = models.URLField()
+    username = models.CharField(max_length=100, null=False)
+    password = models.CharField(max_length=100, null=False)
+    role = models.CharField(max_length=100, null=False)
+    image = models.URLField(null=True)
     processos = models.ArrayReferenceField(to=Processo)
 
     def to_json(self):
@@ -116,10 +116,10 @@ class Usuario(models.Model):
             "id_uuid": self.id_uuid,
             "name": self.name,
             "email": self.email,
-            "usuario": self.usuario,
-            "senha": self.senha,
+            "username": self.username,
+            "password": self.password,
             "role": self.role,
-            "imagem": self.imagem
+            "image": self.image
         }
 
     

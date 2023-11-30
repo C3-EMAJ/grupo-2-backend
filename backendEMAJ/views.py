@@ -26,7 +26,7 @@ def createUser(request):
         #if e.errors().
         return JsonResponse(data={
             "error":str(e.errors()),
-            "message": str('oi'),
+            "message": str("Ocorreu um erro inesperado."),
             "statuscode": 400
         }, status=400)
     
