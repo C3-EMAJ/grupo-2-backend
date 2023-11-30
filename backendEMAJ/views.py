@@ -175,7 +175,7 @@ def getUsers(request):
     
 @require_GET
 def getUserByName(request):
-    nome=request.query_params.get('name')
+    nome=request.GET.get('name')
     try:
         
         user = Usuario.objects.get(name=nome)
