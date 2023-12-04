@@ -88,7 +88,6 @@ class Assistido(models.Model):
             "telefone1": self.telefone1,
             "telefone2": self.telefone2,
             "profissao": self.profissao,
-            "idade": self.idade,
             "renda": self.renda,
             "dependentes": self.dependentes,
             "representado": self.representado_id,
