@@ -11,7 +11,6 @@ class ModelAssistido(BaseModel):
     telefone1 : int
     telefone2 : int
     profissao : str
-    idade : int
     renda : int
     dependentes : str
 

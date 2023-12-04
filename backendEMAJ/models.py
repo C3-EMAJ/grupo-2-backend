@@ -65,7 +65,6 @@ class Assistido(models.Model):
     telefone1 = models.IntegerField(null=False)
     telefone2 = models.IntegerField(null=False)
     profissao = models.CharField(max_length= 20)
-    idade = models.IntegerField()
     renda = models.FloatField(null=False)
     dependentes = models.CharField(max_length=100)
     representado = models.ForeignKey(Representado, null=True, on_delete=models.CASCADE)
