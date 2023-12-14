@@ -41,7 +41,8 @@ ALLOWED_HOSTS = [
     "emaj-2-backend.onrender.com",
     "grupo2-backend-teste.onrender.com",
     "emaj-2.onrender.com",
-    "emaj-2-teste.onrender.com"
+    "emaj-2-teste.onrender.com",
+    "186.222.255.54"
 ]
 CORS_ORIGIN_ALLOW_ALL = True
 
