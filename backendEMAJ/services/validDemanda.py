@@ -4,6 +4,7 @@ import re
 
 class ModelDemanda(BaseModel):
     titulo: str
+    assistido: str
     usuario: str
     descricao: str
     image: str or None

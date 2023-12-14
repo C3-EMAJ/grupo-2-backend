@@ -12,6 +12,7 @@ class Processo(models.Model):
 class Demanda(models.Model):
     id_uuid = models.CharField(max_length=100, unique=True, null=True)
     titulo = models.CharField(max_length=100, null=True)
+    assistido = models.CharField(max_length=100, null=True)
     usuario = models.CharField(max_length=100, null=True)
     descricao = models.CharField(max_length=100, null=True)
     image = models.CharField(max_length=100, null=True)
@@ -20,6 +21,7 @@ class Demanda(models.Model):
         return {
             "id_uuid": self.id_uuid,
             "titulo": self.titulo,
+            "assistido": self.assistido,
             "usuario": self.usuario,
             "descricao": self.descricao,
             "image": self.image
@@ -81,7 +83,7 @@ class Assistido(models.Model):
     endereco = models.TextField(max_length= 50, null=False)
     #processos = models.ArrayReferenceField(to=Processo)
     conhecido = models.CharField(max_length=100)
-    demandas = models.ArrayReferenceField(to=Demanda)
+    demandas = models.CharField(max_length=100, null=True)
     atendimento = models.ArrayReferenceField(to=Atendimento)
     documentos = models.ArrayReferenceField(to=Documento)
     pecas = models.ArrayReferenceField(to=Pecas)

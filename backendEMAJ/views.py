@@ -39,7 +39,7 @@ def createDemanda(request):
     setattr(newDemanda, "id_uuid", newUUID)
     newDemanda.save()
 
-    return JsonResponse(data={"success": True, "message": "Usuário criado com sucesso."}, status=201)
+    return JsonResponse(data={"success": True, "message": "Demanda criada com sucesso."}, status=201)
 
 @require_POST
 def deleteDemanda(request):
