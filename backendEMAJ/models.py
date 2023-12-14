@@ -10,10 +10,20 @@ class Processo(models.Model):
 
 
 class Demanda(models.Model):
-    escritorio = models.CharField(max_length=100)
-    assunto = models.TextField()
-    processo = models.ArrayReferenceField(to=Processo)
-    data = models.DateField()
+    id_uuid = models.CharField(max_length=100, unique=True, null=True)
+    titulo = models.CharField(max_length=100, null=True)
+    usuario = models.CharField(max_length=100, null=True)
+    descricao = models.CharField(max_length=100, null=True)
+    image = models.CharField(max_length=100, null=True)
+
+    def to_json(self):
+        return {
+            "id_uuid": self.id_uuid,
+            "titulo": self.titulo,
+            "usuario": self.usuario,
+            "descricao": self.descricao,
+            "image": self.image
+        }
     
     
 class Atendimento(models.Model):

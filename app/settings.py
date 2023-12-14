@@ -114,11 +114,11 @@ WSGI_APPLICATION = 'app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'emajDB',
+        'NAME': 'emajDB2',
         "CLIENT": {
             'host': os.getenv('MONGO_DB_URI'),
-            'username': 'emajgrupo2',
-            'password': 'Fxgz3sASUSTLEuHs',
+            'username': 'vitordeavilafreitas',
+            'password': '4hi2l8JB0Wk9fEcJ',
             'authSource': 'admin',
             'authMechanism': 'SCRAM-SHA-1',
         }, 

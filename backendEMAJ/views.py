@@ -7,16 +7,76 @@ from django.http import JsonResponse
 #from backendEMAJ.models import User
 from backendEMAJ import models
 from backendEMAJ.models import Assistido
+from backendEMAJ.models import Demanda
 from backendEMAJ.models import Usuario
 from backendEMAJ.models import Representado
 from backendEMAJ.services.validAssistido import ModelAssistido
 from backendEMAJ.services.validUsuario import ModelUsuario
+from backendEMAJ.services.validDemanda import ModelDemanda
 from pydantic import ValidationError
 import uuid
 
 # Create your views here.
 
 ################# Views do USUARIO #################
+@require_POST
+def createDemanda(request):
+    requisicao = json.loads(request.body)
+    try:
+        validation = ModelDemanda(**requisicao)
+    except ValidationError as e:
+        #if e.errors().
+        return JsonResponse(data={
+            "error":str(e.errors()),
+            "message": str("Ocorreu um erro inesperado."),
+            "statuscode": 400
+        }, status=400)
+    
+    ##### Criando o UUID #####
+
+    newUUID = uuid.uuid4()
+    newDemanda = Demanda(**requisicao)
+    setattr(newDemanda, "id_uuid", newUUID)
+    newDemanda.save()
+
+    return JsonResponse(data={"success": True, "message": "Usuário criado com sucesso."}, status=201)
+
+@require_POST
+def deleteDemanda(request):
+    requisicao = json.loads(request.body)
+    id_uuid = requisicao.get('id_uuid', None)
+
+    if id_uuid is not None:
+        try:
+            user = Demanda.objects.get(id_uuid = id_uuid)
+            user.delete()
+            return JsonResponse(data={"success": True, "message": "Demanda deletada com sucesso"}, status=200)
+        except Demanda.DoesNotExist:
+            return JsonResponse(data={"success": False, "message": "Demanda não encontrada."}, status=404)
+    else:
+        return JsonResponse(data={"success": False, "message": "Parâmetro 'id_uuid' ausente na requisição."}, status=404)
+
+@require_POST
+def editDemanda(request):
+    requisicao = json.loads(request.body)
+    id_uuid = requisicao.get('id_uuid', None)
+    print(id_uuid)
+    if id_uuid is not None:
+        try:
+            demanda = Demanda.objects.get(id_uuid=id_uuid)
+
+            # Atualize os campos do Assistido com os novos valores do JSON da requisição
+            for key, value in requisicao.items():
+                if key != 'id_uuid': 
+                    setattr(demanda, key, value)
+
+            demanda.save()  # Salve as alterações no banco de dados
+            return JsonResponse(data={"success": True, "message": "Demanda editada com sucesso"}, status=200)
+        except Demanda.DoesNotExist:
+            return JsonResponse(data={"success": False, "message": "Demanda não encontrada."}, status=404)
+    else:
+        return JsonResponse(data={"success": False, "message": "Parâmetro 'id_uuid' não encontrado."}, status=404)
+
 @require_POST
 def createUser(request):
     requisicao = json.loads(request.body)
@@ -200,6 +260,19 @@ def getAssistidos(request):
         return JsonResponse(assistidos_json, safe=False, status=200)
     except Assistido.DoesNotExist:
         return JsonResponse(data={"success": False, "message": "Nenhum assistido encontrado."}, status=404)
+
+@require_GET
+def getDemandas(request):
+    try:
+        demandas = Demanda.objects.all()
+        if len(demandas) < 1:
+            return JsonResponse(data={"success": False, "message": "Nenhuma demanda encontrada."}, status=404)    
+        # Converte a lista de usuários em um array de objetos JSON
+        demandas_json = [demanda.to_json() for demanda in demandas]
+
+        return JsonResponse(demandas_json, safe=False, status=200)
+    except Demanda.DoesNotExist:
+        return JsonResponse(data={"success": False, "message": "Nenhuma demanda encontrada."}, status=404)
 
 ################# TESTES #################
 
