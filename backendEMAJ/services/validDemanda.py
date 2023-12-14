@@ -7,5 +7,5 @@ class ModelDemanda(BaseModel):
     assistido: str
     usuario: str
     descricao: str
-    image: str or None
+    image: str
     
