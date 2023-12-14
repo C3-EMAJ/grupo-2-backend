@@ -35,9 +35,11 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "https://emaj-2-backend.onrender.com",
+    "https://grupo2-backend-teste.onrender.com",
     "https://emaj-2.onrender.com",
     "https://emaj-2-teste.onrender.com",
     "emaj-2-backend.onrender.com",
+    "grupo2-backend-teste.onrender.com",
     "emaj-2.onrender.com",
     "emaj-2-teste.onrender.com"
 ]
@@ -63,7 +65,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # Adicione o endereço do seu aplicativo React
     "https://emaj-2-backend.onrender.com",
     "https://emaj-2.onrender.com",
-    "https://emaj-2-teste.onrender.com"
+    "https://emaj-2-teste.onrender.com",
+    "https://grupo2-backend-teste.onrender.com"
 ]
 
 CORS_ALLOW_HEADERS = [
